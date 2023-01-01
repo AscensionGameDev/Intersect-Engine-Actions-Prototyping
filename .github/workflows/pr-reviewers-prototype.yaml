@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-reviewers:
-    if: contains(github.event.pull_request.base.ref, '-prototype-')
+    if: contains(github.event.pull_request.base.ref, '-prototype')
     runs-on: ubuntu-latest
 
     steps:
@@ -25,4 +25,4 @@ jobs:
     - name: Debug
       run: |
         echo "github.event.pull_request.base.ref=${{ github.event.pull_request.base.ref }}"
-        echo "matches branch=${{ contains(github.event.pull_request.base.ref, '-prototype-') }}"
+        echo "matches branch=${{ contains(github.event.pull_request.base.ref, '-prototype') }}"
