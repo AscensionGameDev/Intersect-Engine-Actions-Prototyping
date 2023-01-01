@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: PR Required Reviewers
-        uses: Automattic/action-required-review
+      - name: Required Review
+        uses: Automattic/action-required-review@v2.2.2
         with:
           requirements-file: .github/reviewers/branch-prototype.yaml
           status: Review Required
