@@ -160,24 +160,22 @@ namespace Intersect.Core
         /// <summary>
         /// Discovers, creates, and registers services.
         /// </summary>
-        protected virtual void DiscoverServices() =>
-            GetAssemblies()
-                .SelectMany(AssemblyExtensions.FindDefinedSubtypesOf<IApplicationService>)
-                .ToList()
-                .ForEach(
-                    serviceType =>
-                    {
-                        Debug.Assert(serviceType != null, nameof(serviceType) + " != null");
-                        if (!(Activator.CreateInstance(serviceType) is IApplicationService service))
-                        {
-                            throw new InvalidOperationException(
-                                $@"Failed to create service of type {serviceType.FullName}."
-                            );
-                        }
+        protected virtual void DiscoverServices()
+        {
+            var serviceTypes = GetAssemblies().SelectMany(a => a.GetTypes())
+                .Where(t => t.IsSubclassOf(typeof(IApplicationService))).ToList();
 
-                        AddService(service.ServiceType, service);
-                    }
-                );
+            for (int i = serviceTypes.Count - 1; i >= 0; i--)
+            {
+                var serviceType = serviceTypes[i];
+                if (!(Activator.CreateInstance(serviceType, true) is IApplicationService service))
+                {
+                    throw new InvalidOperationException($@"Failed to create service of type {serviceType.FullName}.");
+                }
+
+                AddService(service.ServiceType, service);
+            }
+        }
 
         private void RunOnAllServices(Action<IApplicationService> action, bool isRunning, bool force = true) =>
             Services.Where(service => (default != service) && service.IsEnabled && (force || (isRunning == service.IsRunning))).ToList().ForEach(action);
@@ -205,41 +203,36 @@ namespace Intersect.Core
         /// <inheritdoc />
         public void Start(bool lockUntilShutdown = true)
         {
+            if (IsStarted)
+            {
+                return;
+            }
+
             IsStarted = true;
 
             DiscoverServices();
+            BootstrapServices();
+
+            PackedIntersectPacket.AddKnownTypes(PacketHelper.AvailablePacketTypes);
 
             try
             {
-                BootstrapServices();
+                // If UsesMainThread is true, this does not return until shutdown.
+                InternalStart();
+            }
+            catch (Exception exception)
+            {
+                // Reuse Exception object instead of creating a new one each time
+                Logger.Error(exception);
+                return;
+            }
 
-                PackedIntersectPacket.AddKnownTypes(PacketHelper.AvailablePacketTypes);
-
-                try
-                {
-                    // If UsesMainThread is true, this does not return until shutdown.
-                    InternalStart();
-                }
-                catch (Exception exception)
-                {
-                    Logger.Error(exception);
-                    return;
-                }
-
-                // When UsesMainThread is true, we only reach this point until
-                // we are shutting down, so we should just short-circuit here.
-                if (UsesMainThread)
-                {
-                    return;
-                }
-
+            // When UsesMainThread is true, we only reach this point until
+            // we are shutting down, so we should just short-circuit here.
+            if (!UsesMainThread)
+            {
                 // Must be manually invoked if UsesMainThread is true.
                 PostStartup();
-            }
-            catch (ServiceLifecycleFailureException serviceLifecycleFailureException)
-            {
-                Logger.Error(serviceLifecycleFailureException);
-                return;
             }
 
             #region Wait for application thread

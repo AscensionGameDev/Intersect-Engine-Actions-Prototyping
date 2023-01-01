@@ -1751,49 +1751,48 @@ namespace Intersect.Client.Framework.Gwen.Control
         }
 
         /// <summary>
-        ///     Positions the control inside its parent.
+        /// Positions the control inside its parent.
         /// </summary>
         /// <param name="pos">Target position.</param>
-        /// <param name="xpadding">X padding.</param>
-        /// <param name="ypadding">Y padding.</param>
-        public virtual void Position(Pos pos, int xpadding = 0, int ypadding = 0) // todo: a bit ambiguous name
+        /// <param name="xPadding">X padding.</param>
+        /// <param name="yPadding">Y padding.</param>
+        public virtual void Position(Pos pos, int xPadding = 0, int yPadding = 0)
         {
-            var w = Parent.Width;
-            var h = Parent.Height;
-            var padding = Parent.Padding;
+            // Cache frequently used values.
+            int parentWidth = Parent.Width;
+            int parentHeight = Parent.Height;
+            Padding padding = Parent.Padding;
 
-            var x = X;
-            var y = Y;
-            if (0 != (pos & Pos.Left))
+            // Calculate the new X and Y positions using bitwise operations.
+            int x = X;
+            int y = Y;
+            if ((pos & Pos.Left) != 0)
             {
-                x = padding.Left + xpadding;
+                x = padding.Left + xPadding;
+            }
+            else if ((pos & Pos.Right) != 0)
+            {
+                x = parentWidth - Width - padding.Right - xPadding;
+            }
+            else if ((pos & Pos.CenterH) != 0)
+            {
+                x = (int)(padding.Left + xPadding + (parentWidth - Width - padding.Left - padding.Right) * 0.5f);
             }
 
-            if (0 != (pos & Pos.Right))
+            if ((pos & Pos.Top) != 0)
             {
-                x = w - Width - padding.Right - xpadding;
+                y = padding.Top + yPadding;
+            }
+            else if ((pos & Pos.Bottom) != 0)
+            {
+                y = parentHeight - Height - padding.Bottom - yPadding;
+            }
+            else if ((pos & Pos.CenterV) != 0)
+            {
+                y = (int)(padding.Top + yPadding + (parentHeight - Height - padding.Bottom - padding.Top) * 0.5f);
             }
 
-            if (0 != (pos & Pos.CenterH))
-            {
-                x = (int) (padding.Left + xpadding + (w - Width - padding.Left - padding.Right) * 0.5f);
-            }
-
-            if (0 != (pos & Pos.Top))
-            {
-                y = padding.Top + ypadding;
-            }
-
-            if (0 != (pos & Pos.Bottom))
-            {
-                y = h - Height - padding.Bottom - ypadding;
-            }
-
-            if (0 != (pos & Pos.CenterV))
-            {
-                y = (int) (padding.Top + ypadding + (h - Height - padding.Bottom - padding.Top) * 0.5f);
-            }
-
+            // Set the new position.
             SetPosition(x, y);
         }
 
