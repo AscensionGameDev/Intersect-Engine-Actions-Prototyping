@@ -17,9 +17,9 @@ jobs:
 
     steps:
       - name: Required Review
-        uses: Automattic/action-required-review@v2.2.2
+        uses: Automattic/action-required-review@v3.0.1
         with:
           requirements-file: .github/reviewers/branch-prototype.yaml
           status: Review Required
-          # fail: true
+          fail: true
           token: ${{ secrets.INTERSECTBOT_ACCESS_TOKEN }}
