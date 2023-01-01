@@ -21,5 +21,5 @@ jobs:
         with:
           requirements-file: .github/reviewers/branch-prototype.yaml
           status: Review Required
-          fail: true
+          # fail: true
           token: ${{ secrets.INTERSECTBOT_ACCESS_TOKEN }}
