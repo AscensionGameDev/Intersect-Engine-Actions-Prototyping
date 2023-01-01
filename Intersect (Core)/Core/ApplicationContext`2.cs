@@ -201,7 +201,7 @@ namespace Intersect.Core
         #region Lifecycle
 
         /// <inheritdoc />
-        public void Start(bool lockUntilShutdown = true)
+        public void Start(bool lockUntilShutdown = false)
         {
             if (IsStarted)
             {
