@@ -3963,6 +3963,9 @@ Tick timer saved in server config.json.";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Redo = @"Redo (Ctrl + Y)";
+            
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString revision = @"Revision: {00}";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString FlipHorizontal = @"Horizontal Flip Selection (PageDown)";
