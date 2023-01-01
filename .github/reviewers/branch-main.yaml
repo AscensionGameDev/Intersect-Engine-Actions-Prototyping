@@ -1,0 +1,11 @@
+- name: Editor
+  paths:
+   - 'Intersect.Editor/**'
+  teams:
+    - collaborators
+    - maintainers
+
+- name: Others
+  paths: unmatched
+  teams:
+    - maintainers

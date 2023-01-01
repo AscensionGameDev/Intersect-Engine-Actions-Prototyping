@@ -1,0 +1,22 @@
+name: Pull Request Reviewers
+
+on:
+  pull_request_target:
+    branches:
+      - 'development'
+  pull_request_review:
+
+
+jobs:
+  check-reviewers:
+    if: github.event.pull_request.base.ref == 'development'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: PR Required Reviewers
+        uses: Automattic/action-required-review
+        with:
+          requirements-file: .github/reviewers/branch-development.yaml
+          status: Review Required
+          fail: true
+          token: ${{ secrets.INTERSECTBOT_ACCESS_TOKEN }}
