@@ -1,9 +1,12 @@
 name: Pull Request Reviewers
 
 on:
+  pull_request:
+    branches:
+      - main
   pull_request_target:
     branches:
-      - 'main'
+      - main
   pull_request_review:
 
 

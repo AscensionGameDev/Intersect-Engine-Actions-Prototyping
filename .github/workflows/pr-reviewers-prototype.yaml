@@ -1,6 +1,9 @@
 name: Pull Request Reviewers
 
 on:
+  pull_request:
+    branches:
+      - '**-prototype-**'
   pull_request_target:
     branches:
       - '**-prototype-**'
