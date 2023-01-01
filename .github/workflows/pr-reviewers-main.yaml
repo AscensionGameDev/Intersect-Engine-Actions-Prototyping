@@ -18,3 +18,12 @@ jobs:
           status: Review Required
           fail: true
           token: ${{ secrets.INTERSECTBOT_ACCESS_TOKEN }}
+
+  debug:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Debug
+      run: |
+        echo "github.event.pull_request.base.ref=${{ github.event.pull_request.base.ref }}"
+        echo "matches branch=${{ github.event.pull_request.base.ref == 'main' }}"
