@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  check-reviewers:
+  check-reviewers-main:
     if: github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
 
@@ -15,7 +15,18 @@ jobs:
       - name: Required Review
         uses: Automattic/action-required-review@v3.0.1
         with:
-          requirements-file: .github/reviewers/branch-main.yaml
+          requirements: |
+            - name: Editor
+              paths:
+              - 'Intersect.Editor/**'
+              teams:
+                - collaborators
+                - maintainers
+
+            - name: Others
+              paths: unmatched
+              teams:
+                - maintainers
           status: Review Required
           fail: true
           token: ${{ secrets.INTERSECTBOT_ACCESS_TOKEN }}
