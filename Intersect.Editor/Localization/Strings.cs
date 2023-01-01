@@ -3844,72 +3844,103 @@ Tick timer saved in server config.json.";
 
         public partial struct MainForm
         {
-
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString about = @"About";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString alllayers = @"All Layers";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString animationeditor = @"Animation Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString classeditor = @"Class Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString commoneventeditor = @"Common Event Editor";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Copy = @"Copy (Ctrl + C)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString craftingtableeditor = @"Crafting Table Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString craftingeditor = @"Crafts Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString currentonly = @"Current Layer Only";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Cut = @"Cut (Ctrl + X)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString darkness = @"Darkness";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Dropper = @"Dropper (I)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString edit = @"Edit";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString editors = @"Game Editors";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Erase = @"Erase (E)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString exit = @"Exit";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString exportmap = @"Export Map";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString Events = @"Events";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString file = @"File";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Fill = @"Fill (F)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString fog = @"Fog";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString fps = @"FPS: {00}";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString grid = @"Map Grid";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString help = @"Help";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString importmap = @"Import Map";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString itemeditor = @"Item Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString lighting = @"Toggle Time of Day Simulation On/Off";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString loc = @"CurX: {00}  CurY: {01}";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString MenuToolsPackageUpdate = @"Package Update";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString newmap = @"New Map";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString npceditor = @"Npc Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString options = @"Options";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString overlay = @"Overlay";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -3918,10 +3949,13 @@ Tick timer saved in server config.json.";
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Brush = @"Brush (B)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString postquestion = @"Post Question";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString projectileeditor = @"Projectile Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString questeditor = @"Quest Editor";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -3936,52 +3970,137 @@ Tick timer saved in server config.json.";
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString FlipVertical = @"Vertical Flip Selection (PageUp)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString reportbug = @"Report Bug";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString resourceeditor = @"Resource Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString resources = @"Resources";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public static LocalizedString Events = @"Events";
+            public static LocalizedString resourcesoptions = @"Resources Options";
 
-            public static LocalizedString revision = @"Revision: {00}";
-
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString run = @"Run Client";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public static LocalizedString SaveMap = @"Save Map (Ctrl + S)";
+            public static LocalizedString SaveMap = @"Save Map";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString screenshot = @"Screenshot Map";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public static LocalizedString Selection = @"Marquee Selection (M)";
+            public static LocalizedString selection = @"Selection";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString Selection = @"Selection (S)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString selectlayers = @"Select...";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString shopeditor = @"Shop Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString ShowMapping = @"Show Mapping (Ctrl + M)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString ShowMap = @"Show Map (M)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString ShowProperties = @"Show Properties (Ctrl + P)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString ShowResources = @"Show Resources (Ctrl + R)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString ShowSelection = @"Show Selection (Ctrl + S)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString Sound = @"Sound";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString SoundEditor = @"Sound Editor";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString spelleditor = @"Spell Editor";
 
-            public static LocalizedString variableeditor = @"Variable Editor";
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString statseditor = @"Stats Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString terraineditor = @"Terrain Editor";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString tileseteditor = @"Tileset Editor";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString tileeditor = @"Tile Editor";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString tilepreview = @"Tile Preview";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString tiles = @"Tiles";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString timeeditor = @"Time Editor";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString title = @"Intersect Editor - {00}";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString tools = @"Tools";
 
-            public static LocalizedString MenuToolsPackageUpdate = @"Package Update";
-
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString toolsdir = @"tools";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Undo = @"Undo (Ctrl + Z)";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString updatestatus = @"Checking for updates...";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString updates = @"Updates";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString usecustomcolors = @"Use Custom Colors";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString variableeditor = @"Variable Editor";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString view = @"View";
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString viewfps = @"View FPS";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString viewgrid = @"View Map Grid";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString viewloc = @"View Map Location";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString viewoverlay = @"View Overlay";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString viewzoom = @"View Zoom";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString website = @"Website";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString zoomin = @"Zoom In (Ctrl + Mouse Wheel Up)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString zoomout = @"Zoom Out (Ctrl + Mouse Wheel Down)";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString ZoomToSelection = @"Zoom to Selection (Ctrl + Z)";
         }
 
         public partial struct MapCacheProgress

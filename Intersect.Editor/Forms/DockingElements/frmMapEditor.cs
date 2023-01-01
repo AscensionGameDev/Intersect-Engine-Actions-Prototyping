@@ -2401,69 +2401,44 @@ namespace Intersect.Editor.Forms.DockingElements
         {
             var enableCursorSprites = Preferences.LoadPreference("EnableCursorSprites");
 
-            if (!(!string.IsNullOrEmpty(enableCursorSprites) && Convert.ToBoolean(enableCursorSprites)) ||
-                Globals.CurrentEditor != -1)
+            if (enableCursorSprites != null)
+            {
+                return;
+            }
+
+            if (!Convert.ToBoolean(enableCursorSprites) && Globals.CurrentEditor != -1)
+            {
+                return;
+            }
+
+            Tuple<string, Point> cursorInfo = GetCursorInfo(Globals.CurrentTool);
+            if (cursorInfo == null)
+            {
+                return;
+            }
+
+            mCurPath = cursorInfo.Item1;
+            mCurClickPoint = cursorInfo.Item2;
+
+            if (!File.Exists(mCurPath))
             {
                 return;
             }
 
             picMap.Focus();
 
-            switch (Globals.CurrentTool)
+            using (mCurSprite = new Bitmap(mCurPath))
             {
-                case (int)EditingTool.Brush:
-                    mCurPath = $"resources/cursors/editor_{EditingTool.Brush.ToString().ToLowerInvariant()}.png";
-                    mCurClickPoint = ToolCursor.Brush.CursorClickPoint;
-                    break;
-
-                case (int)EditingTool.Selection:
-                    mCurPath = $"resources/cursors/editor_{EditingTool.Selection.ToString().ToLowerInvariant()}.png";
-                    mCurClickPoint = ToolCursor.Selection.CursorClickPoint;
-                    break;
-
-                case (int)EditingTool.Rectangle:
-                    mCurPath = $"resources/cursors/editor_{EditingTool.Rectangle.ToString().ToLowerInvariant()}.png";
-                    mCurClickPoint = ToolCursor.Rectangle.CursorClickPoint;
-                    break;
-
-                case (int)EditingTool.Fill:
-                    mCurPath = $"resources/cursors/editor_{EditingTool.Fill.ToString().ToLowerInvariant()}.png";
-                    mCurClickPoint = ToolCursor.Fill.CursorClickPoint;
-                    break;
-
-                case (int)EditingTool.Erase:
-                    mCurPath = $"resources/cursors/editor_{EditingTool.Erase.ToString().ToLowerInvariant()}.png";
-                    mCurClickPoint = ToolCursor.Erase.CursorClickPoint;
-                    break;
-
-                case (int)EditingTool.Dropper:
-                    mCurPath = $"resources/cursors/editor_{EditingTool.Dropper.ToString().ToLowerInvariant()}.png";
-                    mCurClickPoint = ToolCursor.Dropper.CursorClickPoint;
-                    break;
-
-                default:
+                if (mCurSprite == null)
+                {
                     return;
+                }
+
+                Cursor = CreateCursorFromBitmap(mCurSprite, mCurClickPoint);
             }
-
-            if (string.IsNullOrEmpty(mCurPath) || !File.Exists(mCurPath))
-            {
-                return;
-            }
-
-            mCurSprite = new Bitmap(mCurPath);
-
-            if (mCurSprite == null)
-            {
-                return;
-            }
-
-            Cursor = CreateCursorInGrid(mCurSprite, mCurClickPoint);
         }
 
-        /// <summary>
-        /// Creates a cursor from a bitmap depending on the user preferences and selected tool.
-        /// </summary>
-        private Cursor CreateCursorInGrid(Bitmap bmp, Point curHotSpot)
+        private Cursor CreateCursorFromBitmap(Bitmap bmp, Point curHotSpot)
         {
             DestroyIcon(Cursor.Handle);
             IntPtr ptr = bmp.GetHicon();
@@ -2474,6 +2449,45 @@ namespace Intersect.Editor.Forms.DockingElements
             tmp.FIcon = false;
             ptr = CreateIconIndirect(ref tmp);
             return new Cursor(ptr);
+        }
+
+        private static Dictionary<int, Tuple<string, Point>> cursorInfoMap = new Dictionary<int, Tuple<string, Point>>
+        {
+            {
+                (int)EditingTool.Brush, Tuple.Create(
+                    $"resources/cursors/editor_{EditingTool.Brush.ToString().ToLowerInvariant()}.png",
+                    ToolCursor.Brush.CursorClickPoint)
+            },
+            {
+                (int)EditingTool.Selection, Tuple.Create(
+                    $"resources/cursors/editor_{EditingTool.Selection.ToString().ToLowerInvariant()}.png",
+                    ToolCursor.Selection.CursorClickPoint)
+            },
+            {
+                (int)EditingTool.Rectangle, Tuple.Create(
+                    $"resources/cursors/editor_{EditingTool.Rectangle.ToString().ToLowerInvariant()}.png",
+                    ToolCursor.Rectangle.CursorClickPoint)
+            },
+            {
+                (int)EditingTool.Fill, Tuple.Create(
+                    $"resources/cursors/editor_{EditingTool.Fill.ToString().ToLowerInvariant()}.png",
+                    ToolCursor.Fill.CursorClickPoint)
+            },
+            {
+                (int)EditingTool.Erase, Tuple.Create(
+                    $"resources/cursors/editor_{EditingTool.Erase.ToString().ToLowerInvariant()}.png",
+                    ToolCursor.Erase.CursorClickPoint)
+            },
+            {
+                (int)EditingTool.Dropper, Tuple.Create(
+                    $"resources/cursors/editor_{EditingTool.Dropper.ToString().ToLowerInvariant()}.png",
+                    ToolCursor.Dropper.CursorClickPoint)
+            },
+        };
+
+        private Tuple<string, Point> GetCursorInfo(int currentTool)
+        {
+            return cursorInfoMap.TryGetValue(currentTool, out Tuple<string, Point> cursorInfo) ? cursorInfo : null;
         }
     }
 
