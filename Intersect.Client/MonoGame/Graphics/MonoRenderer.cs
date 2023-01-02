@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 using XNARectangle = Microsoft.Xna.Framework.Rectangle;
 using XNAColor = Microsoft.Xna.Framework.Color;
 using System.Globalization;
+using System.Linq;
 
 namespace Intersect.Client.MonoGame.Graphics
 {
@@ -835,31 +836,25 @@ namespace Intersect.Client.MonoGame.Graphics
 
         public override GameFont LoadFont(string filename)
         {
-            //Get font size from filename, format should be name_size.xnb or whatever
+            // Get font size from filename, format should be name_size.xnb or whatever
             var name = GameContentManager.RemoveExtension(filename)
                 .Replace(Path.Combine("resources", "fonts"), "")
                 .TrimStart(Path.DirectorySeparatorChar);
 
+            // Split the name into parts
             var parts = name.Split('_');
-            if (parts.Length >= 1)
-            {
-                if (int.TryParse(parts[parts.Length - 1], out var size))
-                {
-                    name = "";
-                    for (var i = 0; i <= parts.Length - 2; i++)
-                    {
-                        name += parts[i];
-                        if (i + 1 < parts.Length - 2)
-                        {
-                            name += "_";
-                        }
-                    }
 
-                    return new MonoFont(name, filename, size, mContentManager);
-                }
+            // Check if the font size can be extracted
+            if (parts.Length < 1 || !int.TryParse(parts[parts.Length - 1], out var size))
+            {
+                return null;
             }
 
-            return null;
+            // Concatenate the parts of the name except the last one to get the full name
+            name = string.Join("_", parts.Take(parts.Length - 1));
+
+            // Return a new MonoFont with the extracted name and size
+            return new MonoFont(name, filename, size, mContentManager);
         }
 
         public override GameShader LoadShader(string shaderName)
@@ -890,12 +885,7 @@ namespace Intersect.Client.MonoGame.Graphics
 
         public override Pointf MeasureText(string text, GameFont gameFont, float fontScale)
         {
-            if (gameFont == null)
-            {
-                return Pointf.Empty;
-            }
-
-            var font = (SpriteFont) gameFont.GetFont();
+            var font = (SpriteFont)gameFont?.GetFont();
             if (font == null)
             {
                 return Pointf.Empty;
@@ -923,10 +913,8 @@ namespace Intersect.Client.MonoGame.Graphics
             projection.M42 += -0.5f * projection.M22;
             mBasicEffect.Projection = projection;
             mBasicEffect.View = Matrix.CreateRotationZ(0f) *
-                                Matrix.CreateScale(new Vector3(1, 1, 1)) *
+                                Matrix.CreateScale(new Vector3(1.5f, 1.5f, 1f)) *
                                 Matrix.CreateTranslation(-view.X, -view.Y, 0);
-
-            return;
         }
 
         public override bool BeginScreenshot()
