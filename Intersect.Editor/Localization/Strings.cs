@@ -3969,7 +3969,7 @@ Tick timer saved in server config.json.";
 
             public static LocalizedString timeeditor = @"Time Editor";
 
-            public static LocalizedString title = @"Intersect Editor - {00}";
+            public static LocalizedString title = @"(Prototype Dev) Intersect Editor - {00}";
 
             public static LocalizedString tools = @"Tools";
 
