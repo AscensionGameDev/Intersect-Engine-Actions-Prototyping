@@ -913,7 +913,7 @@ namespace Intersect.Client.MonoGame.Graphics
             projection.M42 += -0.5f * projection.M22;
             mBasicEffect.Projection = projection;
             mBasicEffect.View = Matrix.CreateRotationZ(0f) *
-                                Matrix.CreateScale(new Vector3(1.5f, 1.5f, 1f)) *
+                                Matrix.CreateScale(new Vector3(1f, 1f, 1f)) *
                                 Matrix.CreateTranslation(-view.X, -view.Y, 0);
         }
 
