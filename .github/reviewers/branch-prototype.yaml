@@ -1,5 +1,0 @@
-- name: Others
-  paths: unmatched
-  teams:
-    - collaborators
-    - maintainers

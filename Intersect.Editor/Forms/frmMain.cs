@@ -241,7 +241,7 @@ namespace Intersect.Editor.Forms
 
             toolStripBtnFill.Text = Strings.MainForm.Fill;
             toolStripBtnErase.Text = Strings.MainForm.Erase;
-            toolStripBtnEyeDrop.Text = Strings.MainForm.EyeDroppler;
+            toolStripBtnDropper.Text = Strings.MainForm.Dropper;
 
             toolStripTimeButton.Text = Strings.MainForm.lighting;
 
@@ -347,36 +347,36 @@ namespace Intersect.Editor.Forms
                         break;
 
                     // Shortcuts: Map grid Tools.
-                    case Keys.B: // Brush Tool.
+                    case Keys.B: // Brush.
                         toolStripBtnBrush_Click(null, null);
                         break;
 
-                    case Keys.M: // Marquee Selection Tool.
+                    case Keys.M: // Marquee Selection.
                         toolStripBtnSelect_Click(null, null);
                         break;
 
-                    case Keys.R: // Rectangle Fill Tool.
+                    case Keys.R: // Rectangle.
                         toolStripBtnRect_Click(null, null);
                         break;
 
-                    case Keys.PageUp: // Vertical Flip Selection Tool.
+                    case Keys.PageUp: // Vertical Flip Selection.
                         toolStripBtnFlipVertical_Click(null, null);
                         break;
 
-                    case Keys.PageDown: // Horizontal Flip Selection Tool.
+                    case Keys.PageDown: // Horizontal Flip Selection.
                         toolStripBtnFlipHorizontal_Click(null, null);
                         break;
 
-                    case Keys.F: // Fill Layer Tool.
+                    case Keys.F: // Fill.
                         toolStripBtnFill_Click(null, null);
                         break;
 
-                    case Keys.E: // Erase Tool.
+                    case Keys.E: // Erase.
                         toolStripBtnErase_Click(null, null);
                         break;
 
-                    case Keys.I: // Eyedropper Tool.
-                        toolStripBtnEyeDrop_Click(null, null);
+                    case Keys.I: // Dropper.
+                        toolStripBtnDropper_Click(null, null);
                         break;
 
                     case Keys.Delete: // Delete Selection.
@@ -615,7 +615,7 @@ namespace Intersect.Editor.Forms
             toolStripBtnBrush.Enabled = false;
             toolStripBtnSelect.Enabled = true;
             toolStripBtnRect.Enabled = false;
-            toolStripBtnEyeDrop.Enabled = false;
+            toolStripBtnDropper.Enabled = false;
             if (Globals.CurrentLayer == LayerOptions.Attributes)
             {
                 toolStripBtnBrush.Enabled = true;
@@ -637,7 +637,7 @@ namespace Intersect.Editor.Forms
             {
                 toolStripBtnBrush.Enabled = true;
                 toolStripBtnRect.Enabled = true;
-                toolStripBtnEyeDrop.Enabled = true;
+                toolStripBtnDropper.Enabled = true;
             }
 
             switch (Globals.CurrentTool)
@@ -668,9 +668,9 @@ namespace Intersect.Editor.Forms
                         toolStripBtnErase.Checked = false;
                     }
 
-                    if (toolStripBtnEyeDrop.Checked)
+                    if (toolStripBtnDropper.Checked)
                     {
-                        toolStripBtnEyeDrop.Checked = false;
+                        toolStripBtnDropper.Checked = false;
                     }
 
                     if (toolStripBtnCut.Enabled)
@@ -720,9 +720,9 @@ namespace Intersect.Editor.Forms
                         toolStripBtnErase.Checked = false;
                     }
 
-                    if (toolStripBtnEyeDrop.Checked)
+                    if (toolStripBtnDropper.Checked)
                     {
-                        toolStripBtnEyeDrop.Checked = false;
+                        toolStripBtnDropper.Checked = false;
                     }
 
                     if (!toolStripBtnCut.Enabled)
@@ -772,9 +772,9 @@ namespace Intersect.Editor.Forms
                         toolStripBtnErase.Checked = false;
                     }
 
-                    if (toolStripBtnEyeDrop.Checked)
+                    if (toolStripBtnDropper.Checked)
                     {
-                        toolStripBtnEyeDrop.Checked = false;
+                        toolStripBtnDropper.Checked = false;
                     }
 
                     if (toolStripBtnCut.Enabled)
@@ -824,9 +824,9 @@ namespace Intersect.Editor.Forms
                         toolStripBtnErase.Checked = false;
                     }
 
-                    if (toolStripBtnEyeDrop.Checked)
+                    if (toolStripBtnDropper.Checked)
                     {
-                        toolStripBtnEyeDrop.Checked = false;
+                        toolStripBtnDropper.Checked = false;
                     }
 
                     if (toolStripBtnCut.Enabled)
@@ -876,9 +876,9 @@ namespace Intersect.Editor.Forms
                         toolStripBtnErase.Checked = true;
                     }
 
-                    if (toolStripBtnEyeDrop.Checked)
+                    if (toolStripBtnDropper.Checked)
                     {
-                        toolStripBtnEyeDrop.Checked = false;
+                        toolStripBtnDropper.Checked = false;
                     }
 
                     if (toolStripBtnCut.Enabled)
@@ -902,7 +902,7 @@ namespace Intersect.Editor.Forms
                     }
 
                     break;
-                case (int) EditingTool.Droppler:
+                case (int) EditingTool.Dropper:
                     if (toolStripBtnBrush.Checked)
                     {
                         toolStripBtnBrush.Checked = false;
@@ -928,9 +928,9 @@ namespace Intersect.Editor.Forms
                         toolStripBtnErase.Checked = false;
                     }
 
-                    if (!toolStripBtnEyeDrop.Checked)
+                    if (!toolStripBtnDropper.Checked)
                     {
-                        toolStripBtnEyeDrop.Checked = true;
+                        toolStripBtnDropper.Checked = true;
                     }
 
                     if (toolStripBtnCut.Enabled)
@@ -1423,6 +1423,10 @@ namespace Intersect.Editor.Forms
         private void toolStripBtnSelect_Click(object sender, EventArgs e)
         {
             Globals.CurrentTool = (int) EditingTool.Selection;
+            Globals.CurMapSelX = 0;
+            Globals.CurMapSelY = 0;
+            Globals.CurMapSelW = 0;
+            Globals.CurMapSelH = 0;
         }
 
         private void toolStripBtnRect_Click(object sender, EventArgs e)
@@ -1430,11 +1434,13 @@ namespace Intersect.Editor.Forms
             Globals.CurrentTool = (int) EditingTool.Rectangle;
             Globals.CurMapSelX = 0;
             Globals.CurMapSelY = 0;
+            Globals.CurMapSelW = 0;
+            Globals.CurMapSelH = 0;
         }
 
-        private void toolStripBtnEyeDrop_Click(object sender, EventArgs e)
+        private void toolStripBtnDropper_Click(object sender, EventArgs e)
         {
-            Globals.CurrentTool = (int) EditingTool.Droppler;
+            Globals.CurrentTool = (int) EditingTool.Dropper;
             Globals.CurMapSelX = 0;
             Globals.CurMapSelY = 0;
         }

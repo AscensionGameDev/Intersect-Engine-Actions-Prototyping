@@ -2,27 +2,34 @@ name: Prototype PR Review
 
 on:
   pull_request_target:
+    branches:
+      - '**-prototype/**'
   pull_request_review:
 
 
 jobs:
-  check-reviewers:
-    if: contains(github.event.pull_request.base.ref, '-prototype')
+  check-reviewers-prototype:
+    if: contains(github.event.pull_request.base.ref, '-prototype/')
     runs-on: ubuntu-latest
 
     steps:
       - name: Required Review
         uses: Automattic/action-required-review@v3.0.1
         with:
-          requirements-file: .github/reviewers/branch-prototype.yaml
+          requirements: |
+            - name: Others
+              paths: unmatched
+              teams:
+                - collaborators
+                - maintainers
           status: Review Required
           fail: true
           token: ${{ secrets.INTERSECTBOT_ACCESS_TOKEN }}
-  debug:
-    runs-on: ubuntu-latest
+  # debug:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Debug
-      run: |
-        echo "github.event.pull_request.base.ref=${{ github.event.pull_request.base.ref }}"
-        echo "matches branch=${{ contains(github.event.pull_request.base.ref, '-prototype') }}"
+  #   steps:
+  #   - name: Debug
+  #     run: |
+  #       echo "github.event.pull_request.base.ref=${{ github.event.pull_request.base.ref }}"
+  #       echo "matches branch=${{ contains(github.event.pull_request.base.ref, '-prototype/') }}"
